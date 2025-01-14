@@ -15,3 +15,4 @@ class User extends Authenticatable
         'password',
     ];
 }
+

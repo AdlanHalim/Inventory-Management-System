@@ -42,3 +42,4 @@ class Controller extends BaseController
         return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }
 }
+

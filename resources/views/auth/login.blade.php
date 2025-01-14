@@ -7,6 +7,15 @@
             <h3>Inventory Management System</h3>
         </div>
         <div class="card-body">
+
+            <!-- Show Alert -->
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                     {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group mb-3">

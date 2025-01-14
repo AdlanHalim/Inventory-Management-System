@@ -25,22 +25,57 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                <!-- Admin: Access Dashboard, Products, Sales, Reports -->
+                @if(Auth::check() && Auth::user()->name === 'admin')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('products.index') }}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('sales.index') }}">Sales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('reports.index') }}">Sales Report</a>
+                    </li>
+                @endif
+
+                <!-- Supplier: Access Products only -->
+                @if(Auth::check() && Auth::user()->name === 'supplier')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('products.index') }}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('sales.index') }}">Sales</a>
+                    </li>
+                @endif
+
+                <!-- Others: Access Sales only -->
+                @if(Auth::check() && Auth::user()->name !== 'admin' && Auth::user()->name !== 'supplier')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('sales.index') }}">Sales</a>
+                    </li>
+                @endif
+            </ul>
+
+            <!-- Logout Button (Red and Top Right) -->
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('products.index') }}">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('sales.index') }}">Sales</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('reports.index') }}">Reports</a>
+                    <a class="nav-link text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
+
+
 
 <div class="container">
     <h1 class="text-center mb-4">Record a Sale</h1>
